@@ -1,0 +1,39 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+
+
+ /*
+ Check the left and right child of root and compare it to the other tree
+ if they are they are the same move down a level (recursive)
+
+ if p and q are nullptr we are at the end of the graph and return true;
+ -> if only one is nullptr the graphs are not the same.
+ 
+ 
+ */
+class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+
+        // MAkrs end of tree (at leaves) and both are same
+        if (p == nullptr && q == nullptr) {return true;}
+
+        //One tree has ended before the other therefor not the same
+        if (p == nullptr || q == nullptr) { return false;}
+        //If nodes are same move to each child depth and check
+        if (p->val == q->val){
+            return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
+        }
+        //if not equal return 
+        return false;
+    }
+};
