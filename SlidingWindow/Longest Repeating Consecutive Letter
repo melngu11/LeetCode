@@ -1,0 +1,29 @@
+class Solution {
+public:
+     int characterReplacement(string s, int k) {
+        unordered_map<char, int> alphaMap;
+
+        int answer = 0;
+        int start = 0;
+        int end = 0;
+        int maxf = 0;
+
+        while(end < s.size()){
+            alphaMap[s[end]] +=1;
+            maxf = max(maxf, alphaMap[s[end]]);
+
+            //Check window size
+            if ((end - start + 1) - maxf > k){
+                alphaMap[s[start]] -= 1;
+                start++;
+            }
+            answer = max(answer,(end - start + 1));
+            end++;
+
+        }
+    return answer;
+    }
+};
+
+
+//Time Complexity: O(n)
