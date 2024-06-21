@@ -1,0 +1,55 @@
+class Solution {
+public:
+    bool rowCheck(vector<vector<char>>& b, int row, int size){
+        set<char>seen;
+        for(int i = 0; i < size; i++){
+            if (b[row][i] == '.'){
+                continue;
+            }
+            if(seen.find(b[row][i]) != seen.end()) {return false;}
+            seen.insert(b[row][i]);
+        }
+        return true;
+    }
+    bool colCheck(vector<vector<char>>& b, int col, int size){
+        set<char>seen;
+        for(int i = 0; i < size; i++){
+            if (b[i][col] == '.'){
+                continue;
+            }
+            if(seen.find(b[i][col]) != seen.end()) {return false;}
+            seen.insert(b[i][col]);
+        }
+        return true;
+    }
+    bool quadCheck(vector<vector<char>>& quad, int row,int col){
+        set<char>seen;
+        for(int i = 0; i < 3; i++){
+            for(int j = 0 ; j < 3; j++){
+                if (quad[row + i][col + j] == '.'){
+                continue;
+                }
+            if(seen.find(quad[row + i][col + j]) != seen.end()) {return false;}
+            seen.insert(quad[row + i][col + j]);
+            }
+        }
+        return true;
+    }
+    bool isValidSudoku(vector<vector<char>>& board) {
+        int size = board.size();
+        for (int i = 0; i < size; i++){
+        if (!rowCheck(board, i, size) || !colCheck(board, i, size)){
+            return false;
+            }
+        }
+        for(int k = 0; k < size; k+=3){
+            for (int m = 0; m < size; m+= 3){
+                if(!quadCheck(board,k,m)){
+                    return false;
+                }
+            }
+        }
+    
+    return true;
+    }
+};
